@@ -2,11 +2,14 @@ const Koa = require('koa')
 const fs = require('fs');
 const Router = require('koa-router')
 const mysql = require('promise-mysql')
+const { historyApiFallback } = require('koa2-connect-history-api-fallback');
 
 async function setup() {
 
   let app = new Koa()
   let router = new Router()
+
+  app.use(historyApiFallback({ whiteList: ['/api', '/db', '/dist', '/static'] }));
   
   // 根路由
   if (process.env.BUILD_ENV === 'development') {

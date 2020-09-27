@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
+        "baseUrl": "./src", // 设置针对tsx中import的根路由
+        "allowSyntheticDefaultImports": true,
         "outDir": "./dist/",
         "sourceMap": true,
         "strict": true,
         "noImplicitReturns": true,
         "noImplicitAny": true,
-        "module": "es6",
+        "module": "esnext",
         "moduleResolution": "node",
         "target": "es5",
         "allowJs": true,

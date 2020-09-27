@@ -1,5 +1,7 @@
 
 import * as React from 'react';
+import { BrowserRouter as Router, Switch } from "react-router-dom"
+import { baseRoutes, renderRoutes } from './routers';
 
 interface Props {
 }
@@ -7,11 +9,11 @@ interface Props {
 class App extends React.Component<Props> {
   render() {
     return (
-      <>
-        <h1>
-          Hello 皮卡丘
-        </h1>
-      </>
+      <Router>
+        <Switch>
+          {renderRoutes(baseRoutes)}
+        </Switch>
+      </Router>
     );
   }
 }
