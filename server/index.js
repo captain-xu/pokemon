@@ -14,19 +14,19 @@ async function setup() {
   // 根路由
   if (process.env.BUILD_ENV === 'development') {
     const webpack = require('webpack')
-    const koaWebpack = require('koa-webpack');
     const compiler = webpack(require('../client/webpack.config'))
-    const middleware = await koaWebpack({
-      compiler,
-      hotClient: {
-        host: {
-          client: '*',
-          server: '0.0.0.0',
-        },
-        port: 34567
-      },
+    const devMiddleware = require('webpack-dev-middleware')(compiler, {
+      publicPath: '/',
+      logLevel: 'silent',
+      hot: true,
     });
-    app.use(middleware)
+    app.use(require('koa2-connect')(devMiddleware));
+
+    const hotMiddleware = require('webpack-hot-middleware')(compiler, {
+      log: false,
+      heartbeat: 2000,
+    });
+    app.use(require('koa2-connect')(hotMiddleware));
   } else if (process.env.BUILD_ENV === 'production') {
     router.get('/', async ctx=>{
       ctx.response.type = 'html';

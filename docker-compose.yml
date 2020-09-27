@@ -7,7 +7,6 @@ services:
             - .:/client       #把本地当前目录挂载到容器的/client目录
         ports:                  #端口映射
             - "3000:3000"   #本地端口：容器端口
-            - "34567:34567" #websocket 监听端口
         command: npm run dev      #这条命令会在工作目录下执行
     mysql:
         image: mysql:5.6

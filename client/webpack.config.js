@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   entry: [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
     path.resolve(__dirname, './src/index'),
   ],
   output: {
@@ -49,7 +50,7 @@ const config = {
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin(),
-    // new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
   optimization: {
     runtimeChunk: 'single',
