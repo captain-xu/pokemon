@@ -1,18 +1,59 @@
+/* eslint-disable */
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
+const BUILD_ENV = process.env.BUILD_ENV;
+const isDev = BUILD_ENV === 'development';
+
+const cssRegex        = /\.css$/;
+const lessRegex       = /\.less$/;
+
+function getStyleLoaders(cssOptions = {}, preProcessor) {
+  const loaders = [
+    {
+      loader: require.resolve('css-loader'),
+      options: {
+        sourceMap: isDev,
+        ...cssOptions
+      },
+    },
+  ];
+
+  if (!isDev) {
+    loaders.unshift({loader: MiniCssExtractPlugin.loader,});
+  } else {
+    loaders.unshift(require.resolve('style-loader'));
+  }
+
+  if (preProcessor) {
+    loaders.push({
+      loader: require.resolve(preProcessor),
+      options: {
+        sourceMap: isDev,
+        ...(preProcessor === 'less-loader' ? {lessOptions: {javascriptEnabled: true}} : {})
+      }
+    });
+  }
+  return loaders;
+}
 
 const config = {
+  mode: process.env.BUILD_ENV,
   entry: [
     path.resolve(__dirname, './src/index'),
   ],
+  // 输出配置
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
-    publicPath: process.env.BUILD_ENV === 'production' ? '/dist/' : '/'
+    filename: isDev ? '[name].js' : '[name].[chunkhash].js',
+    publicPath: isDev ? '/' : '/dist/'
   },
+
   module: {
+    // 加载器配置
     rules: [
       {
         test: /\.(ts|js)x?$/,
@@ -20,13 +61,17 @@ const config = {
         exclude: /node_modules/
       },
       {
-        test: /\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'less-loader'
-        ]
-      }
+        test: cssRegex,
+        use: getStyleLoaders({
+          importLoaders: 1,
+        }),
+      },
+      {
+        test: lessRegex,
+        use: getStyleLoaders({
+          importLoaders: 2,
+        }, "less-loader"),
+      },
     ]
   },
   resolve: {
@@ -38,28 +83,20 @@ const config = {
     ]
   },
   plugins: [
+    new ProgressBarPlugin(),
     new HtmlWebpackPlugin({
       appMountId: 'app',
       template: path.resolve(__dirname, './index.html'),
       filename: 'index.html',
     }),
-    new MiniCssExtractPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
-        }
-      }
-    }
-  }
+    !isDev && new MiniCssExtractPlugin({
+      filename: '[name].[chunkhash:6].css',
+      chunkFilename: 'styles/[name].[chunkhash:6].css'
+    }),
+    isDev && new webpack.HotModuleReplacementPlugin()
+  ].filter(Boolean)
 };
 
-process.env.BUILD_ENV === 'development' && config.entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true')
+isDev && config.entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true')
 
 module.exports = config;
