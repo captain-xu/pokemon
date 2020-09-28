@@ -16,13 +16,8 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         use: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.ts(x)?$/,
-        loader: 'ts-loader',
         exclude: /node_modules/
       },
       {
