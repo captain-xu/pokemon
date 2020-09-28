@@ -5,13 +5,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
     path.resolve(__dirname, './src/index'),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    publicPath: process.env.BUILD_ENV === 'production' ? '/dist' : '/'
+    publicPath: process.env.BUILD_ENV === 'production' ? '/dist/' : '/'
   },
   module: {
     rules: [
@@ -60,5 +59,7 @@ const config = {
     }
   }
 };
+
+process.env.BUILD_ENV === 'development' && config.entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true')
 
 module.exports = config;
