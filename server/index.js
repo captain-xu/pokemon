@@ -22,7 +22,7 @@ async function setup() {
   if (process.env.BUILD_ENV === 'development') {
     app.use(useDevServer());
   } else if (process.env.BUILD_ENV === 'production') {
-    app.use(ecstatic({ root: 'client/dist/' }));
+    app.use(ecstatic({ root: 'dist/' }));
   }
   
   // 测试mysql连接路由

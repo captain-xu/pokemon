@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env BUILD_ENV=development nodemon server/index.js",
     "prod": "cross-env BUILD_ENV=production nodemon server/index.js",
-    "build-prod": "cross-env BUILD_ENV=production webpack --config client/webpack.config.js"
+    "build-prod": "cross-env BUILD_ENV=production webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
