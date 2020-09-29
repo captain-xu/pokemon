@@ -23,11 +23,11 @@ export default class PageLayout extends React.Component<Props> {
         <Sider trigger={null} theme="light">
           <Link to="/">
             <div className="page-logo">
-              <img src='/static/pokemon.jpg' width="20" height="20" />
+              <img src='/static/pokemon.png' width="30" height="30" />
               <span className="m-l-10 text-bold">宝可梦</span>
             </div>
           </Link>
-          <Menu mode="inline" selectedKeys={selectedKeys}>
+          <Menu mode="inline" selectedKeys={selectedKeys} style={{marginTop: '-4px'}}>
             <Menu.Item key="psyduck" icon={<Icon type="icon-psyduck" />}>
               <Link style={{display: 'inline'}} to={`/psyduck`}>可达鸭</Link>
             </Menu.Item>
