@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import { Switch, Link, RouteComponentProps } from 'react-router-dom';
-import { getRoutesData, baseRoutes, renderRoutes } from '../../routers';
+import { getRoutesData, baseRoutes, renderRoutes } from 'routers';
 import Icon from '../Icon'
 
 import './index.less'

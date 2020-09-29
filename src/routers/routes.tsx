@@ -1,13 +1,13 @@
 import React from 'react';
-import LazyLoad from '../components/LazyLoad';
+import LazyLoad from 'components/LazyLoad';
 
 // layout
-const PageLayout = LazyLoad(() => import('../components/Layout'));
+const PageLayout = LazyLoad(() => import('components/Layout'));
 
-const Dashboard = LazyLoad(() => import('../pages/Dashboard'));
-const Psyduck = LazyLoad(() => import('../pages/Psyduck'));
-const Pikachu = LazyLoad(() => import('../pages/Pikachu'));
-const Squirtle = LazyLoad(() => import('../pages/Squirtle'));
+const Dashboard = LazyLoad(() => import('pages/Dashboard'));
+const Psyduck = LazyLoad(() => import('pages/Psyduck'));
+const Pikachu = LazyLoad(() => import('pages/Pikachu'));
+const Squirtle = LazyLoad(() => import('pages/Squirtle'));
 
 // 初始化路由配置
 export const baseRoutes = [

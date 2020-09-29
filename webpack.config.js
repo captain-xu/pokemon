@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const BUILD_ENV = process.env.BUILD_ENV;
 const isDev = BUILD_ENV === 'development';
@@ -80,7 +81,8 @@ const config = {
       '.jsx',
       '.tsx',
       '.ts'
-    ]
+    ],
+    plugins: [new TsconfigPathsPlugin({})]
   },
   plugins: [
     new ProgressBarPlugin(),
