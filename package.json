@@ -24,6 +24,8 @@
     "@types/react-loadable": "^5.5.3",
     "@types/react-router-dom": "^5.1.5",
     "antd": "^4.6.6",
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
     "connect-history-api-fallback": "^1.6.0",
     "ecstatic": "^4.1.4",
     "express": "^4.17.1",

@@ -2,6 +2,7 @@ const express = require('express');
 const useDevServer = require('./devServer');
 const history = require('connect-history-api-fallback');
 const ecstatic = require('ecstatic');
+const bodyParser = require('body-parser');
 
 const project = require('./routes/project');
 
@@ -25,6 +26,9 @@ async function setup() {
   } else if (process.env.BUILD_ENV === 'production') {
     app.use(ecstatic({ root: 'dist/' }));
   }
+
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
   app.use('/api/project', project);
 
