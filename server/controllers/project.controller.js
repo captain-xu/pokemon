@@ -1,19 +1,17 @@
 const projectService = require('../services/project.service');
 
 exports.list = (req, res, next) => {
-  var results = [];
-  projectService.getAllProjects(req.query, (rows) => {
-    results = rows;
+  projectService.getAllProjects(req.query).then(rows => {
     res.send({
       code: 0,
       message: 'success',
       response: {
-        project_list: results,
+        project_list: rows,
       },
     })
-  }, (err) => {
+  }).catch(err => {
     console.log(err)
-  });
+  })
 };
 
 exports.insert = (req, res, next) => {
@@ -25,12 +23,12 @@ exports.insert = (req, res, next) => {
     })
     return
   }
-  projectService.addProjectItem(param, () => {
+  projectService.addProjectItem(param).then(() => {
     res.send({
       code: 0,
       message: 'success',
     })
-  }, (err) => {
+  }).catch(err => {
     console.log(err)
-  });
+  })
 };

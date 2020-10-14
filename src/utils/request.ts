@@ -19,9 +19,10 @@ export const request = (config: any) => {
 
       if (response.data.code === 0) {
         return response.data.response
-      }
-      else if (response.data.code === 401) {
+      } else if (response.data.code === 401) {
         return;
+      } else {
+        return Promise.reject(response.data);
       }
 
     }, err => {
