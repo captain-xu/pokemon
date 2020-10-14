@@ -1,6 +1,11 @@
 # pokemon
   General release management platform
 
+### 技术栈
+
+  - 服务端：Docker + Nodejs(Express) + mysql + sequelize
+  - 客户端：React + antd + less + webpack
+
 ### 开发
 
   yarn
