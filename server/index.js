@@ -1,5 +1,5 @@
 const express = require('express');
-const useDevServer = require('./devServer');
+const useDevServer = require('./middlewares/devServer');
 const history = require('connect-history-api-fallback');
 const ecstatic = require('ecstatic');
 const bodyParser = require('body-parser');
