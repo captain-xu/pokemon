@@ -6,6 +6,8 @@ import Icon from '../Icon'
 
 import './index.less'
 
+const logo = require('../../assets/pokemon.png')
+
 const { Header, Sider, Content } = Layout;
 
 const route = getRoutesData(baseRoutes);
@@ -23,7 +25,7 @@ export default class PageLayout extends React.Component<Props> {
         <Sider trigger={null} theme="light">
           <Link to="/">
             <div className="page-logo">
-              <img src='/static/pokemon.png' width="30" height="30" />
+              <img src={logo} width="30" height="30" />
               <span className="m-l-10 text-bold">宝可梦</span>
             </div>
           </Link>
