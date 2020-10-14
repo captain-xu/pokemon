@@ -32,3 +32,15 @@ exports.insert = (req, res, next) => {
     console.log(err)
   })
 };
+
+exports.delete = (req, res, next) => {
+  const param = req.body;
+  projectService.deleteProjectItem(param).then(() => {
+    res.send({
+      code: 0,
+      message: 'success',
+    })
+  }).catch(err => {
+    console.log(err)
+  })
+};

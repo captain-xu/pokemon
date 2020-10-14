@@ -8,3 +8,11 @@ exports.getAllProjects = (query) => {
 exports.addProjectItem = (param) => {
   return projectModel.create(param)
 };
+
+exports.deleteProjectItem = (param) => {
+  return projectModel.destroy({
+		where: {
+			...param
+		}
+	})
+};

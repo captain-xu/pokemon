@@ -17,3 +17,12 @@ export function addProject(args = {}) {
     data: args
   })
 }
+
+// 删除项目
+export function deleteProject(args = {}) {
+  return request({
+    url: `/api/project`,
+    method: 'DELETE',
+    data: args
+  })
+}

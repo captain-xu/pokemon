@@ -1,6 +1,7 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { Col, Row } from 'antd';
-import { getProjectList } from 'apis/project';
+import React, { FC, Fragment, useEffect, useMemo, useState } from 'react';
+import { Col, Row, Popconfirm } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { deleteProject, getProjectList } from 'apis/project';
 import { CardAdd, CardItem } from 'components/CustomCard';
 import AddProjectModal from './components/add-project-modal';
 
@@ -8,16 +9,25 @@ const Psyduck: FC = () => {
   const [projectList, setProjectList] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
 
-  useEffect(() => {
-    const fetchData = () => {
-      getProjectList().then(res => {
-        setProjectList(res?.project_list || [])
-      }).catch(err => {
+  const fetchData = () => {
+    getProjectList().then(res => {
+      setProjectList(res?.project_list || [])
+    }).catch(err => {
 
-      })
-    }
+    })
+  }
+
+  useEffect(() => {
     fetchData()
-  }, [modalVisible]);
+  }, []);
+
+  const handleDelete = (id: string) => {
+    deleteProject({project_id: id}).then(res => {
+      fetchData()
+    }).catch(err => {
+
+    })
+  }
 
   return useMemo(() => (
     <div>
@@ -30,13 +40,27 @@ const Psyduck: FC = () => {
             <Col span={6} key={item.project_id}>
               <CardItem
                 title={item.project_name}
+                footer={
+                  <Fragment>
+                    <div></div>
+                    <Popconfirm
+                      title="确定删除？"
+                      placement="bottom"
+                      onConfirm={() => handleDelete(item.project_id)}
+                      okText="确定"
+                      cancelText="取消"
+                    >
+                      <DeleteOutlined className="warn-link" />
+                    </Popconfirm>
+                  </Fragment>
+                }
               >
               </CardItem>
             </Col>
           )
         )}
       </Row>
-      <AddProjectModal visible={modalVisible} hideModal={() => {setModalVisible(false)}} />
+      <AddProjectModal visible={modalVisible} hideModal={() => {setModalVisible(false); fetchData()}} />
     </div>
   ), [projectList, modalVisible])
 };

@@ -7,5 +7,7 @@ router.get('/', project.list);
 
 router.post('/', project.insert);
 
+router.delete('/', project.delete);
+
 
 module.exports = router;
