@@ -4,7 +4,7 @@ const history = require('connect-history-api-fallback');
 const ecstatic = require('ecstatic');
 const bodyParser = require('body-parser');
 
-const project = require('./routes/project');
+const Router = require('./routes');
 
 async function setup() {
   const app = express();
@@ -30,7 +30,7 @@ async function setup() {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  app.use('/api/project', project);
+  Router(app)
 
   app.listen(3000)
 }

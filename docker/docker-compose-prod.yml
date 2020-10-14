@@ -9,7 +9,7 @@ services:
             - "3000:3000"   #本地端口：容器端口
         command: npm run prod      #这条命令会在工作目录下执行
     mysql:
-        image: mysql:5.6
+        image: mysql:8.0.17
         volumes:
             - ./data:/var/lib/mysql     #挂载当前的data目录到容器默认mysql存储目录
             - ./mysql:/docker-entrypoint-initdb.d
