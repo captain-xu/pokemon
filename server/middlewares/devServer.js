@@ -3,7 +3,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 module.exports = function useDevServer() {
-  const compiler = webpack(require('../webpack.config'));
+  const compiler = webpack(require('../../webpack.config'));
   const devMiddleware = webpackDevMiddleware(compiler, {
     publicPath: '/',
     host: '0.0.0.0',
